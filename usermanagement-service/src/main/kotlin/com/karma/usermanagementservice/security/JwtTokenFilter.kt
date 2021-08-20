@@ -1,6 +1,7 @@
 package com.karma.usermanagementservice.security
 
 import com.karma.usermanagementservice.client.AuthorizationClient
+import com.karma.usermanagementservice.dto.AuthDto
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.web.filter.GenericFilterBean
 import javax.servlet.FilterChain
@@ -13,7 +14,7 @@ class JwtTokenFilter(private val authorizationClient: AuthorizationClient) : Gen
     override fun doFilter(request: ServletRequest, response: ServletResponse, chain: FilterChain) {
         val token = (request as HttpServletRequest).getHeader("Authorization")
         if(token != null) {
-            SecurityContextHolder.getContext().authentication = authorizationClient.authorize(token)
+            SecurityContextHolder.getContext().authentication = authorizationClient.authorize(AuthDto(token))
         }else {
             throw Exception("Token doesn't provided")
         }

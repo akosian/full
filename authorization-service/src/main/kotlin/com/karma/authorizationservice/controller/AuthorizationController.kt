@@ -1,5 +1,6 @@
 package com.karma.authorizationservice.controller
 
+import com.karma.authorizationservice.dto.AuthDto
 import com.karma.authorizationservice.dto.UserDto
 import com.karma.authorizationservice.security.JwtTokenProvider
 import com.karma.authorizationservice.service.AuthorizationService
@@ -20,7 +21,8 @@ class AuthorizationController(
 ) {
 
     @PostMapping
-    fun authorize(token: String) = service.getAuthorization(token)
+    fun authorize(dto: AuthDto) =
+        service.getAuthorization(dto.token)
 
     @PostMapping("/login")
     fun login(userDto: UserDto): String {
