@@ -1,6 +1,5 @@
 package com.karma.authorizationservice.controller
 
-import com.karma.authorizationservice.dto.AuthDto
 import com.karma.authorizationservice.dto.UserDto
 import com.karma.authorizationservice.security.JwtTokenProvider
 import com.karma.authorizationservice.service.AuthorizationService
@@ -10,7 +9,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
-import javax.servlet.http.HttpServletRequest
 
 @RestController
 @RequestMapping("/auth")
@@ -21,8 +19,8 @@ class AuthorizationController(
 ) {
 
     @PostMapping
-    fun authorize(dto: AuthDto) =
-        service.getAuthorization(dto.token)
+    fun authorize(token: String) =
+        service.getAuthorization(token)
 
     @PostMapping("/login")
     fun login(userDto: UserDto): String {

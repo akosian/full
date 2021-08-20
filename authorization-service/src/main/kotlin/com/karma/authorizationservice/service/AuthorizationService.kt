@@ -9,10 +9,10 @@ class AuthorizationService(
     private val tokenProvider: JwtTokenProvider,
 ) {
 
-    fun getAuthorization(token: String): UsernamePasswordAuthenticationToken {
+    fun getAuthorization(token: String): Boolean {
         val resolverToken = tokenProvider.resolveToken(token)
         if (resolverToken != null && tokenProvider.validateToken(resolverToken)) {
-            return tokenProvider.getAuthentication(resolverToken)
+            return true
         } else {
             throw Exception("Not valid token")
         }
